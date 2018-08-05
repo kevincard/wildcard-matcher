@@ -1,17 +1,17 @@
 # Fast Wildcard Matcher
 A fast implementation of wildcard matching basing on BackTracing algorithm
 
-Usage: 
+## Usage: 
 
-* Class: FastWildcardMatcher 
-* Method: public static boolean match(final CharSequence source, final CharSequence pattern);
-* Description: Checks whether a string or path matches a given wildcard pattern. Possible patterns allow to match single characters
+### Class: FastWildcardMatcher 
+* public static boolean match(final CharSequence source, final CharSequence pattern);
+* Checks whether a string or path matches a given wildcard pattern. Possible patterns allow to match single characters
  ('?') or any count of characters ('*'). Wildcard characters can be escaped (by an '\\'). When matching path, deep tree
  wildcard also can be used ('**').
  
- * Class: FastWildcardMatcherV2
-* Method: public static boolean match(final CharSequence source, final CharSequence pattern);
-* Description: Similar with FastWildcardMatcher, expect that '?' also matches zero character.
+### Class: FastWildcardMatcherV2
+* public static boolean match(final CharSequence source, final CharSequence pattern);
+* Similar with FastWildcardMatcher, expect that '?' also matches zero character.
 
 ## Performance
  * Average time complexity: O(n)
