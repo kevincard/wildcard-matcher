@@ -46,6 +46,8 @@ public class MyBenchmark {
     public final static String TEST_PATTERN4 = "*.*?softhouse.*";
     public final static String TEST_PATTERN5 = "com.github.*house";
     public final static String TEST_PATTERN6 = "com.github?so??house.softhouse";
+    public final static String TEST_PATTERN7 = "*?so??soft.house";
+    public final static String TEST_PATTERN8 = "com.github.softhouse.utils";
 
     @Benchmark
     public void wildcardMatcherFromJobb(final Blackhole blackhole) {
@@ -55,9 +57,11 @@ public class MyBenchmark {
         blackhole.consume(WildcardMatcher.match(TEST_STRING, TEST_PATTERN4));
         blackhole.consume(WildcardMatcher.match(TEST_STRING, TEST_PATTERN5));
         blackhole.consume(WildcardMatcher.match(TEST_STRING, TEST_PATTERN6));
+        blackhole.consume(WildcardMatcher.match(TEST_STRING, TEST_PATTERN7));
+        blackhole.consume(WildcardMatcher.match(TEST_STRING, TEST_PATTERN8));
     }
 
-//    @Benchmark
+    @Benchmark
     public void wildcardMatcherSimple(final Blackhole blackhole) {
         blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN1));
         blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN2));
@@ -65,6 +69,8 @@ public class MyBenchmark {
         blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN4));
         blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN5));
         blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN6));
+        blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN7));
+        blackhole.consume(SimpleWildcardMatcher.match(TEST_STRING, TEST_PATTERN8));
     }
 
     @Benchmark
@@ -75,9 +81,11 @@ public class MyBenchmark {
         blackhole.consume(FastWildcardMatcher.match(TEST_STRING, TEST_PATTERN4));
         blackhole.consume(FastWildcardMatcher.match(TEST_STRING, TEST_PATTERN5));
         blackhole.consume(FastWildcardMatcher.match(TEST_STRING, TEST_PATTERN6));
+        blackhole.consume(FastWildcardMatcher.match(TEST_STRING, TEST_PATTERN7));
+        blackhole.consume(FastWildcardMatcher.match(TEST_STRING, TEST_PATTERN8));
     }
 
-//    @Benchmark
+    @Benchmark
     public void wildcardMatcherMyVersion2(final Blackhole blackhole) {
         blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN1));
         blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN2));
@@ -85,5 +93,7 @@ public class MyBenchmark {
         blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN4));
         blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN5));
         blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN6));
+        blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN7));
+        blackhole.consume(FastWildcardMatcherV2.match(TEST_STRING, TEST_PATTERN8));
     }
 }
