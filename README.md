@@ -24,4 +24,4 @@ Usage:
 |MyBenchmark.wildcardMatcherFromJobb   | thrpt |   3 |  423263.765 ±  50034.316 || ops/s|
 |MyBenchmark.wildcardMatcherMyVersion1 | thrpt  |  3 | 1981307.913 ±  94699.304 || ops/s|
 |MyBenchmark.wildcardMatcherMyVersion2 | thrpt  |  3 | 2181474.899 ± 248855.801 || ops/s|
-|MyBenchmark.wildcardMatcherSimple     | thrpt  |  3 | 1184048.548 ± 227573.587 || ops/s|
+|MyBenchmark.wildcardMatcherSimpleBackTrace     | thrpt  |  3 | 1184048.548 ± 227573.587 || ops/s|
