@@ -7,6 +7,8 @@ public class FastWildcardMatcherTest {
 
     @Test
     public void matchStringVersion1() {
+        Assert.assertFalse(FastWildcardMatcher.match("a", "aa"));
+        Assert.assertFalse(FastWildcardMatcher.match("aa", "a"));
         Assert.assertTrue(FastWildcardMatcher.match("abc", "*"));
         Assert.assertTrue(FastWildcardMatcher.match("abc", "*c"));
         Assert.assertTrue(FastWildcardMatcher.match("abc", "a*"));

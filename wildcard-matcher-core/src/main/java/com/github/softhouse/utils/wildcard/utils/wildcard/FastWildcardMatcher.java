@@ -10,7 +10,7 @@ import java.util.List;
 public class FastWildcardMatcher {
 
     public static boolean match(final CharSequence source, final CharSequence pattern) {
-        int patternLength = pattern.length();
+        final int patternLength = pattern.length();
         if (patternLength == 1) {
             if (pattern.charAt(0) == '*') {
                 return true;
@@ -19,20 +19,35 @@ public class FastWildcardMatcher {
         if (patternLength == 0) {
             return source.length() == 0;
         }
-        int sourceLength = source.length();
+        final int sourceLength = source.length();
 
-        //try matching from the end
-        int sIndex = sourceLength - 1;
-        int pIndex = patternLength - 1;
-        while (sIndex >= 0) {
-            if (pIndex >= 0) {
-                final char pChar = pattern.charAt(pIndex);
-                if (pChar == '*') {
-                    break;
+        // try matching from the start until there's a '*'
+        int sIndex = 0;
+        int pIndex = 0;
+        char pChar;
+        boolean nextIsNotWildcard = false;
+        while (sIndex < sourceLength) {
+            if (pIndex < patternLength) {
+                pChar = pattern.charAt(pIndex);
+                if (!nextIsNotWildcard) {
+                    if (pChar == '*') {
+                        break;
+                    } else if (pChar == '?') {
+                        sIndex++;
+                        pIndex++;
+                        continue;
+                    } else if (pChar == '\\') {
+                        pIndex++;
+                        nextIsNotWildcard = true;
+                        continue;
+                    }
+                } else {
+                    nextIsNotWildcard = false;
                 }
-                else if (pChar == '?' || pChar == source.charAt(sIndex)) {
-                    pIndex--;
-                    sIndex--;
+
+                if (pChar == source.charAt(sIndex)) {
+                    sIndex++;
+                    pIndex++;
                 }
                 else {
                     return false;
@@ -42,12 +57,37 @@ public class FastWildcardMatcher {
                 return false;
             }
         }
-        patternLength = pIndex + 1;
-        sourceLength = sIndex + 1;
-        sIndex = 0;
-        pIndex = 0;
-        int pCheckPoint = -1;
+
+        //try matching from the end until there's a '*'
+        int sEndIndex = sourceLength - 1;
+        int pEndIndex = patternLength - 1;
+        while (sEndIndex >= sIndex) {
+            if (pEndIndex >= pIndex) {
+                pChar = pattern.charAt(pEndIndex);
+                if (pChar == '*') {
+                    break;
+                }
+                else if (pChar == '?' || pChar == source.charAt(sEndIndex)) {
+                    pEndIndex--;
+                    sEndIndex--;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        return (pEndIndex < pIndex)|| match(source, pattern, sIndex, pIndex, sEndIndex + 1, pEndIndex + 1);
+
+    }
+
+    public static boolean match(final CharSequence source, final CharSequence pattern, final int sBeginIndex, final int pBeginIndex, final int sourceLength, final int patternLength) {
+        int sIndex = sBeginIndex;
+        int pIndex = pBeginIndex;
         int sCheckPoint = -1;
+        int pCheckPoint = -1;
 
         char pChar = 0;
         boolean nextIsNotWildcard = false;
@@ -116,6 +156,9 @@ public class FastWildcardMatcher {
                     pIndex = pCheckPoint;
                     sIndex = sourceLength - (patternLength - pCheckPoint);
                 }
+                else {
+                    return false;
+                }
             }
         }
 
@@ -125,7 +168,6 @@ public class FastWildcardMatcher {
 
         return pIndex == patternLength;
     }
-
     /**
      * Matches string to at least one pattern. Returns index of matched pattern, or <code>-1</code> otherwise.
      */

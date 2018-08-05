@@ -43,7 +43,7 @@ public class MyBenchmark {
     public final static String TEST_PATTERN1 = "*.github.softhouse";
     public final static String TEST_PATTERN2 = "com.github.softhouse.*";
     public final static String TEST_PATTERN3 = "com.*.softhouse.softhouse";
-    public final static String TEST_PATTERN4 = "*.*?softhouse.*";
+    public final static String TEST_PATTERN4 = "*?*?softhouse.*";
     public final static String TEST_PATTERN5 = "com.github.*house";
     public final static String TEST_PATTERN6 = "com.github?so??house.softhouse";
     public final static String TEST_PATTERN7 = "*?so??soft.house";

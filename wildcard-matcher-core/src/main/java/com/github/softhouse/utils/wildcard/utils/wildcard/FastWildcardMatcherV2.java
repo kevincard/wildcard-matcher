@@ -16,7 +16,7 @@ public class FastWildcardMatcherV2 {
         }
         final int sourceLength = source.length();
         if (patternLength == 0) {
-            return false;
+            return source.length() == 0;
         }
 
         int sIndex = sourceLength - 1;
